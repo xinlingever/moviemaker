@@ -25,7 +25,7 @@ let AddFilesPanel = React.createClass({
                 style="focused";
               }
               //
-              return <li className={style} onClick={self.clicked.bind(self,index)}>{item.name}</li>;
+              return <li key={'photo' + index} className={style} onClick={self.clicked.bind(self,index)}>{item.name}</li>;
             })
           }
         </ul>

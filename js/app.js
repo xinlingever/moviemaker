@@ -3,8 +3,7 @@ import Router from 'react-router';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 
 import HelloHandler from './hello.js';
-import Timer from './timer.js';
-import Menu from './menu.js';
+
 import AddFiles from './addFiles.js';
 
 
@@ -15,8 +14,7 @@ let App = React.createClass({
         <Link to="app" className="homelink">Home  </Link>
         <Link to="hello" className="hellolink">  Say Hello</Link>
         <RouteHandler/>
-        <Timer start={Date.now()} />
-        <Menu items={['Home','About','Contect']} />
+
         <AddFiles />
 
       </div>

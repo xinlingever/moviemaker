@@ -4,7 +4,7 @@ import $ from 'jquery';
 
 require('./library/jquery.ui.widget.js');
 require('./library/jquery.fileupload.js');
-
+require('./library/jquery.fileupload-process.js');
 
 import AddFilesPanel from './addFilesPanel.js';
 
@@ -38,10 +38,20 @@ let AddFiles = React.createClass({
           }
 
         }.bind(this),
+        progress: function (e, data) {
+          if (e.isDefaultPrevented()) {
+              return false;
+          }
+
+          var progress = Math.floor(data.loaded / data.total * 100);
+          console.log('progressssssssssssssss ' + progress );
+        },
         error: function(e, data) {
           alert(JSON.stringify(data));
         }
     });
+
+
   },
   render() {
     return(
@@ -51,7 +61,7 @@ let AddFiles = React.createClass({
             <span>Add files...</span>
             <input id="fileupload" type="file" name="files[]" multiple></input>
         </span>
-        <AddFilesPanel photos={this.state.items}/>
+        <AddFilesPanel key='panel' photos={this.state.items}/>
       </div>);
   }
 
