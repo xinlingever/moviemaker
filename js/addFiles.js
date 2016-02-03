@@ -48,7 +48,7 @@ let AddFiles = React.createClass({
           }
           var curState = this.state;
           curState.fileName = '';
-          
+
           $.each(data.files, function (index, file) {
             curState.fileName += file.name + ' / ';
           });
