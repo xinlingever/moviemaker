@@ -75,6 +75,12 @@ let AddFiles = React.createClass({
         error: function(e, data) {
           alert(JSON.stringify(data));
         }
+    }).on('fileuploadadd', function (e, data) {
+        $.each(data.files, function (index, file) {
+            loadImage.parseMetaData(file, function(metadata){
+              //console.log(JSON.stringify(metadata.exif));
+            });
+        });
     });
 
 
