@@ -11,10 +11,10 @@ import UploadProgress from './uploadProgress.js';
 
 let AddFiles = React.createClass({
   onFilesSelected: function(items) {
-      var curItems = this.state.items;
-      curItems = curItems.concat(items);
-      this.setState({items: curItems});
-    console.log("yes!!!" + JSON.stringify(items));
+    //   var curItems = this.state.items;
+    //   curItems = curItems.concat(items);
+    //   this.setState({items: curItems});
+    // console.log("yes!!!" + JSON.stringify(items));
   },
     getInitialState() {
         return {items:[], fileName:'', progress:'0'};
@@ -27,17 +27,17 @@ let AddFiles = React.createClass({
         dataType: 'json',
         autoUpload: true,
         done: function (e, data) {
-          var photosArray = [];
+          //var photosArray = [];
           $.each(data.result.files, function (index, file) {
               //$('<p/>').text(file.name).appendTo(document.body);
-              photosArray.push({name: file.name});
+              //photosArray.push({name: file.name});
               console.log(index + '::::' + file.name);
           });
-
-          console.log('photosArray:' + photosArray.length);
-          if(this.onFilesSelected) {
-            this.onFilesSelected(photosArray);
-          }
+          //
+          // console.log('photosArray:' + photosArray.length);
+          // if(this.onFilesSelected) {
+          //   this.onFilesSelected(photosArray);
+          // }
 
           $('#progress').hide();
 
@@ -46,14 +46,14 @@ let AddFiles = React.createClass({
           if (e.isDefaultPrevented()) {
               return false;
           }
-          var curState = this.state;
-          curState.fileName = '';
-
+          //var curState = this.state;
+          //curState.fileName = '';
+          var fileName = '';
           $.each(data.files, function (index, file) {
-            curState.fileName += file.name + ' / ';
+            fileName += file.name + ' / ';
           });
 
-          this.setState(curState);
+          this.setState({fileName:fileName});
 
         }.bind(this),
 
@@ -62,13 +62,13 @@ let AddFiles = React.createClass({
           if (e.isDefaultPrevented()) {
               return false;
           }
-          var curState = this.state;
+          //var curState = this.state;
 
           var progress = Math.floor(data.loaded / data.total * 100);
           //$('.progress-bar').css({width: progress + '%'});
-          curState.progress = progress;
+          //curState.progress = progress;
           //curState.fileName = data.files[0].name;
-          this.setState(curState);
+          this.setState({progress:progress});
           console.log('progressssssssssssssss ' + progress );
         }.bind(this),
 
@@ -76,12 +76,19 @@ let AddFiles = React.createClass({
           alert(JSON.stringify(data));
         }
     }).on('fileuploadadd', function (e, data) {
+        var curItems = this.state.items;
+        var items = [];
+
         $.each(data.files, function (index, file) {
-            loadImage.parseMetaData(file, function(metadata){
-              //console.log(JSON.stringify(metadata.exif));
-            });
-        });
-    });
+          items.push(file);
+          // loadImage.parseMetaData(file, function(metadata){
+          //   //console.log(JSON.stringify(metadata.exif));
+          // });
+        }.bind(this));
+
+        curItems = curItems.concat(items);
+        this.setState({items: curItems});
+    }.bind(this));
 
 
   },
@@ -93,7 +100,7 @@ let AddFiles = React.createClass({
             <span>Add files...</span>
             <input id="fileupload" type="file" name="files[]" multiple></input>
         </span>
-        <UploadProgress progress={this.state.progress} fileName={this.state.fileName}/>
+        <UploadProgress key='progress' progress={this.state.progress} fileName={this.state.fileName}/>
         <AddFilesPanel key='panel' photos={this.state.items}/>
       </div>);
   }

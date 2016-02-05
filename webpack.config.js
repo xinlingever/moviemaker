@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 module.exports = {
+    port: 8800,
     entry: [
       "./js/app.js"
     ],
