@@ -29,7 +29,7 @@ var getIcon = function(type) {
 let Thumbnail = React.createClass({
   getExif: function(pFile) {
     loadImage.parseMetaData(pFile, function(metadata){
-      console.log(JSON.stringify(metadata.exif));
+      //console.log(JSON.stringify(metadata.exif));
       this.setState({thumbnail:metadata.exif.Thumbnail});
     }.bind(this));
   },
