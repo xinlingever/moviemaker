@@ -133,6 +133,15 @@
                     } else {
                         console.log('Invalid JPEG file: Missing JPEG marker.');
                     }
+
+                    // var bin2String = function bin2String(array) {
+                    //   var result = "";
+                    //   for (var i = 0; i < array.length; i++) {
+                    //     result += String.fromCharCode(parseInt(array[i]));
+                    //   }
+                    //   return result;
+                    // };
+                    // console.log(bin2String(data.exif[37500]));
                     callback(data);
                 },
                 'readAsArrayBuffer'
